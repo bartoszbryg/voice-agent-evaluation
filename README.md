@@ -6,12 +6,11 @@ Vendor evaluation of AI voice calling platforms to replace JustCall for outbound
 
 ---
 
-## Reports
+## Report
 
 | File | Description |
 |---|---|
-| `part1_vendor_landscape.md` | Full technical report — JustCall failure analysis, all 6 vendors, live test results with timestamps |
-| `email_report.md` | Executive summary for non-technical stakeholders |
+| `voice_agent_evaluation.md` | Technical Report — JustCall failure analysis, all 6 vendors, live test results |
 
 ---
 
