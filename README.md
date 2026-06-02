@@ -4,29 +4,25 @@ Vendor evaluation of AI voice calling platforms to replace JustCall for outbound
 
 **Platforms evaluated:** Retell AI · Vapi · Bland AI · Synthflow · PolyAI · Air AI
 
----
-
 ## Report
 
 | File | Description |
 |---|---|
 | `voice_agent_evaluation.md` | Technical Report — JustCall failure analysis, all 6 vendors, live test results |
 
----
-
 ## Transcribing call recordings
 
-Used this script to convert Retell AI and Vapi call recordings into text before analysis.
-Runs locally using OpenAI Whisper — no API key or cost.
+Used this script to convert Retell AI and Vapi call recordings into text before analysis. Runs locally using OpenAI Whisper so no API key was needed - no cost.
 
 ```bash
 pip install openai-whisper
 python transcribe_audio.py recording.wav
 ```
 
-Outputs a `recording_transcript.txt` file next to the audio file. After transcribing, I pasted the text into Claude Code, ChatGPT, and Gemini for cross-analysis. Uploading audio files directly to those tools had accuracy issues — running Whisper locally first gave much cleaner results.
+Outputs a `recording_transcript.txt` file next to the audio file. After transcribing, I pasted the text into Claude Code, ChatGPT, and Gemini for cross-analysis. Uploading audio files directly to those tools had accuracy issues. Running Whisper locally first gave much cleaner results.
 
 Options:
+
 ```
 --model    tiny / base / small / medium / large   (default: base)
 --format   txt / srt / vtt                        (default: txt)
@@ -35,11 +31,9 @@ Options:
 
 See `examples/transcribe_audio_output.txt` for expected output.
 
----
-
 ## Voice pipeline (scripts/)
 
-A minimal end-to-end voice pipeline built to understand how the latency works — same architecture used by Retell AI and Vapi under the hood.
+A minimal end-to-end voice pipeline built to understand how the latency works. Same architecture uses Retell AI and Vapi under the hood.
 
 ```
 Mic → VAD → .wav → Deepgram STT → Claude LLM (streaming) → ElevenLabs TTS → Speaker
@@ -100,14 +94,10 @@ Speak into your mic → transcribed → AI responds → spoken back to you.
 
 For comparison: JustCall's sequential pipeline produces 2–3s of dead air because each stage waits for the previous one to fully finish before starting.
 
----
-
 ## Example outputs
 
 The `examples/` folder contains sample output files for every script so you know exactly what to expect before running anything.
 
----
-
 ## Call recordings
 
-Live test calls (included in the evaluation email) were recorded during testing sessions on Retell AI and Vapi using an identical agent prompt and the same ElevenLabs voice on both platforms. Five scenarios were tested on each: baseline call, busy customer, off-script questions, and AI disclosure test.
+Live test calls were recorded during testing sessions on Retell AI and Vapi using an identical agent prompt and the same ElevenLabs voice on both platforms. Five scenarios were tested on each: baseline call, busy customer, off-script questions, and AI disclosure test.
